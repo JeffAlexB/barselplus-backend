@@ -1,4 +1,4 @@
-package com.alex.barselplus_backend;
+package com.alex.barselplus_backend.dto;
 
 import lombok.Getter;
 import lombok.Setter;

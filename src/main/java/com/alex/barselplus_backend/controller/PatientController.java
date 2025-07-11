@@ -1,5 +1,7 @@
-package com.alex.barselplus_backend;
+package com.alex.barselplus_backend.controller;
 
+import com.alex.barselplus_backend.service.PatientService;
+import com.alex.barselplus_backend.dto.PatientDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

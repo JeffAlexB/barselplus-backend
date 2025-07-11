@@ -1,5 +1,6 @@
-package com.alex.barselplus_backend;
+package com.alex.barselplus_backend.repository;
 
+import com.alex.barselplus_backend.model.Patient;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

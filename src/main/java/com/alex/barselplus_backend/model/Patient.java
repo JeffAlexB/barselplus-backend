@@ -1,4 +1,4 @@
-package com.alex.barselplus_backend;
+package com.alex.barselplus_backend.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

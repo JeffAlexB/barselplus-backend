@@ -1,5 +1,8 @@
-package com.alex.barselplus_backend;
+package com.alex.barselplus_backend.service;
 
+import com.alex.barselplus_backend.dto.PatientDTO;
+import com.alex.barselplus_backend.model.Patient;
+import com.alex.barselplus_backend.repository.PatientRepository;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +31,6 @@ public class PatientService {
             throw new RuntimeException("Patient not found");
         }
     }
-
 
     private PatientDTO convertToDTO(Patient patient) {
         PatientDTO dto = new PatientDTO();
