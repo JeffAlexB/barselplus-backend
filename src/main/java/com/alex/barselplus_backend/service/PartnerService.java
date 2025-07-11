@@ -3,26 +3,25 @@ package com.alex.barselplus_backend.service;
 import com.alex.barselplus_backend.dto.PartnerDTO;
 import com.alex.barselplus_backend.model.Partner;
 import com.alex.barselplus_backend.repository.PartnerRepository;
-import lombok.Getter;
-import lombok.Setter;
+import com.alex.barselplus_backend.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
-@Getter
-@Setter
 @Service
 public class PartnerService {
+    private final PatientRepository patientRepository;
     private final PartnerRepository partnerRepository;
 
     @Autowired
-    public PartnerService(PartnerRepository partnerRepository) {
+    public PartnerService(PatientRepository patientRepository, PartnerRepository partnerRepository) {
+        this.patientRepository = patientRepository;
         this.partnerRepository = partnerRepository;
     }
 
-    public PartnerDTO findPartnerByNationalID(long nationalID) {
-        Optional<Partner> optionalPartner = partnerRepository.findByNationalID(nationalID);
+    public PartnerDTO getPartnerByPatientId(long patientId) {
+        Optional<Partner> optionalPartner = partnerRepository.findByPatient_PatientID(patientId);
 
         if (optionalPartner.isPresent()){
             Partner partner = optionalPartner.get();

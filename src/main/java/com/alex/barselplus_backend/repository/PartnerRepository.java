@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface PartnerRepository extends JpaRepository<Partner, Long> {
-    Optional<Partner> findByNationalID(long NationalID);
+    Optional<Partner> findByPatient_PatientID(long patientID);
 }
