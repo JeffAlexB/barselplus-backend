@@ -16,8 +16,13 @@ import java.time.LocalDate;
 @Table(name = "partner")
 public class Partner {
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_id", nullable = false)
+    private Patient patient;
+
+    /*
     @Column(name = "patient_id", nullable = false)
-    private Long patientID;
+    private Long patientID;*/
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

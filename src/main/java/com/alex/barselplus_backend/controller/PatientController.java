@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path="/api/patients")
+@RequestMapping(path="/api/patient")
 public class PatientController {
     private final PatientService patientService;
 
@@ -23,6 +23,6 @@ public class PatientController {
 
     @GetMapping("/testing")
     public String testEndpoint() {
-        return "Controller is working?";
+        return "patient controller is working?";
     }
 }

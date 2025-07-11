@@ -12,7 +12,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PartnerDTO {
-    private Long partnerId;
     private String firstName;
     private String lastName;
     private LocalDate dateOfBirth;
