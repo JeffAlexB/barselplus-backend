@@ -2,6 +2,7 @@ package com.alex.barselplus_backend.service;
 
 import com.alex.barselplus_backend.dto.PartnerDTO;
 import com.alex.barselplus_backend.model.Partner;
+import com.alex.barselplus_backend.model.Patient;
 import com.alex.barselplus_backend.repository.PartnerRepository;
 import com.alex.barselplus_backend.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,22 @@ public class PartnerService {
         dto.setPhoneNumber(partner.getPhoneNumber());
         dto.setOccupation(partner.getOccupation());
         return dto;
+    }
+
+    public PartnerDTO createPartner(Long patientId, PartnerDTO dto){
+        Patient patient = patientRepository.findById(patientId)
+                .orElseThrow(()-> new IllegalArgumentException("Patient not found"));
+
+        // DTO conversion
+        Partner partner = new Partner();
+        partner.setPatient(patient);
+        dto.setFirstName(partner.getFirst_name());
+        dto.setLastName(partner.getLast_name());
+        dto.setDateOfBirth(partner.getDate_of_birth());
+        dto.setPhoneNumber(partner.getPhoneNumber());
+        dto.setOccupation(partner.getOccupation());
+
+        Partner savedPartner = partnerRepository.save(partner);
+        return convertToDTO(savedPartner);
     }
 }
