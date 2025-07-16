@@ -5,6 +5,7 @@ import com.alex.barselplus_backend.dto.PatientDTO;
 import com.alex.barselplus_backend.repository.PatientRepository;
 import com.alex.barselplus_backend.service.PartnerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,8 +22,16 @@ public class PartnerController {
     }
 
     @GetMapping(path="/{patientID}")
-    public PartnerDTO getPartnerByNationalId(@PathVariable Long patientID) {
-        return partnerService.getPartnerByPatientId(patientID);
+    public ResponseEntity<?> getPartnerByPatientId(@PathVariable Long patientID){
+        if (patientID == null || patientID <= 0) {
+            return ResponseEntity.badRequest().body("Invalid patient ID");
+        }
+        try {
+            PartnerDTO partnerDTO = partnerService.getPartnerByPatientId(patientID);
+            return ResponseEntity.ok(partnerDTO);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/testing")
