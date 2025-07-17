@@ -49,11 +49,11 @@ public class PartnerService {
         // DTO conversion
         Partner partner = new Partner();
         partner.setPatient(patient);
-        dto.setFirstName(partner.getFirst_name());
-        dto.setLastName(partner.getLast_name());
-        dto.setDateOfBirth(partner.getDate_of_birth());
-        dto.setPhoneNumber(partner.getPhoneNumber());
-        dto.setOccupation(partner.getOccupation());
+        partner.setFirst_name(dto.getFirstName());
+        partner.setLast_name(dto.getLastName());
+        partner.setDate_of_birth(dto.getDateOfBirth());
+        partner.setPhoneNumber(dto.getPhoneNumber());
+        partner.setOccupation(dto.getOccupation());
 
         Partner savedPartner = partnerRepository.save(partner);
         return convertToDTO(savedPartner);
