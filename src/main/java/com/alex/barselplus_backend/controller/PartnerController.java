@@ -1,8 +1,6 @@
 package com.alex.barselplus_backend.controller;
 
 import com.alex.barselplus_backend.dto.PartnerDTO;
-import com.alex.barselplus_backend.dto.PatientDTO;
-import com.alex.barselplus_backend.repository.PatientRepository;
 import com.alex.barselplus_backend.service.PartnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

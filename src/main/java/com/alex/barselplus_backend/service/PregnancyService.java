@@ -1,12 +1,17 @@
 package com.alex.barselplus_backend.service;
 
+import com.alex.barselplus_backend.dto.PartnerDTO;
 import com.alex.barselplus_backend.dto.PregnancyDTO;
+import com.alex.barselplus_backend.model.Partner;
 import com.alex.barselplus_backend.model.Patient;
 import com.alex.barselplus_backend.model.Pregnancy;
 import com.alex.barselplus_backend.repository.PatientRepository;
 import com.alex.barselplus_backend.repository.PregnancyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PregnancyService {
@@ -18,6 +23,26 @@ public class PregnancyService {
         this.patientRepository = patientRepository;
         this.pregnancyRepository = pregnancyRepository;
     }
+
+    public PregnancyDTO getPregnancyById(Long pregnancyId) {
+        Optional<Pregnancy> optionalPregnancy = pregnancyRepository.findById(pregnancyId);
+
+        if (optionalPregnancy.isPresent()) {
+            Pregnancy pregnancy = optionalPregnancy.get();
+            return convertToDTO(pregnancy);
+        } else {
+            throw new RuntimeException("Pregnancy with ID " + pregnancyId + " not found");
+        }
+    }
+
+    // down-the-road functionality
+    public List<PregnancyDTO> getAllPregnanciesByPatient(Long patientId) {
+        return pregnancyRepository.findAllByPatient_PatientID(patientId)
+                .stream()
+                .map(this::convertToDTO)
+                .toList();
+    }
+
 
     private PregnancyDTO convertToDTO(Pregnancy pregnancy) {
         PregnancyDTO dto = new PregnancyDTO();
