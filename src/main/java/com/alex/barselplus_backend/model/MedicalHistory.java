@@ -45,23 +45,21 @@ public class MedicalHistory {
     @Column(name = "other_druguse")
     private String otherDrugUse;
 
-    @Column(name = "smoking_week1")
-    private String smokingWeek1;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "smoking", column = @Column(name = "smoking_week1")),
+            @AttributeOverride(name = "snus", column = @Column(name = "snus_week1")),
+            @AttributeOverride(name = "alcohol", column = @Column(name = "alcohol_week1"))
+    })
+    private SubstanceUseSnapshot week1Use;
 
-    @Column(name = "snus_week1")
-    private String snusWeek1;
-
-    @Column(name = "alcohol_week1")
-    private String alcoholWeek1;
-
-    @Column(name = "smoking_week36")
-    private String smokingWeek36;
-
-    @Column(name = "snus_week36")
-    private String snusWeek36;
-
-    @Column(name = "alcohol_week36")
-    private String alcoholWeek36;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "smoking", column = @Column(name = "smoking_week36")),
+            @AttributeOverride(name = "snus", column = @Column(name = "snus_week36")),
+            @AttributeOverride(name = "alcohol", column = @Column(name = "alcohol_week36"))
+    })
+    private SubstanceUseSnapshot week36Use;
 
     @Column(name = "medications")
     private String medications;
@@ -78,4 +76,11 @@ public class MedicalHistory {
     @Column(name = "notes")
     private String notes;
 
+    @Embeddable
+    @Data
+    public class SubstanceUseSnapshot {
+        private String smoking;
+        private String snus;
+        private String alcohol;
+    }
 }
