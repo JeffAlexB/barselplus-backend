@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Data
-@ToString(exclude = "patient")
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -15,17 +14,9 @@ public class MedicalHistory {
     @Column(name = "history_id")
     private Long historyID;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(
-            name = "patient_ID",
-            referencedColumnName = "patient_ID",
-            nullable = false,
-            foreignKey = @ForeignKey(
-                    name = "fk_medicalhistory_patient",
-                    foreignKeyDefinition = "FOREIGN KEY (patient_ID) REFERENCES patient(patient_ID) ON DELETE CASCADE"
-            )
-    )
-    private Patient patient;
+    @OneToOne
+    @JoinColumn(name = "pregnancy_id", nullable = false, unique = true)
+    private Pregnancy pregnancy;
 
     @Column(name = "chronic_diseases")
     private String chronicDiseases;
@@ -78,7 +69,7 @@ public class MedicalHistory {
 
     @Embeddable
     @Data
-    public class SubstanceUseSnapshot {
+    public static class SubstanceUseSnapshot {
         private String smoking;
         private String snus;
         private String alcohol;
