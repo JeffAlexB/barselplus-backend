@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -18,7 +19,7 @@ public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "patient_id", nullable = false)
-    private Long patientID;
+    private Integer patientID;
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
@@ -30,33 +31,33 @@ public class Patient {
     private LocalDate dateOfBirth;
 
     @Column(name = "national_ID", unique = true, nullable = false)
-    private Long nationalID;
+    private Integer nationalID;
 
-    @Column(name = "address")
+    @Column(name = "address", columnDefinition = "TEXT")
     private String address;
 
-    @Column(name = "phone_number")
+    @Column(name = "phone_number", length = 15)
     private String phoneNumber;
 
-    @Column(name = "marital_status")
+    @Column(name = "marital_status", length = 50)
     private String maritalStatus;
 
-    @Column(name = "education_level")
+    @Column(name = "education_level", length = 50)
     private String educationLevel;
 
     @Column(name = "working")
     private Boolean working;
 
-    @Column(name = "occupation")
+    @Column(name = "occupation", length = 100)
     private String occupation;
 
-    @Column(name = "work_percentage")
-    private float workPercentage;
+    @Column(name = "work_percentage", precision = 5, scale = 2)
+    private BigDecimal workPercentage;
 
-    @Column(name = "country_of_origin")
+    @Column(name = "country_of_origin", length = 100)
     private String countryOfOrigin;
 
-    @Column(name = "language")
+    @Column(name = "language", length = 100)
     private String language;
 
     @Column(name = "interpreter_needed")

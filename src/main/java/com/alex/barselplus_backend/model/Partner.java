@@ -38,7 +38,7 @@ public class Partner {
     @Column(name = "date_of_birth", nullable = false)
     private LocalDate date_of_birth;
 
-    @Column(name = "national_ID", unique = true, nullable = false)
+    @Column(name = "national_id", unique = true, nullable = false)
     private Long nationalID;
 
     @Column(name = "address")
