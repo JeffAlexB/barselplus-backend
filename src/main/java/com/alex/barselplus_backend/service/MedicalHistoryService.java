@@ -1,7 +1,6 @@
 package com.alex.barselplus_backend.service;
 
 import com.alex.barselplus_backend.dto.MedicalHistoryDTO;
-import com.alex.barselplus_backend.dto.PregnancyDTO;
 import com.alex.barselplus_backend.model.MedicalHistory;
 import com.alex.barselplus_backend.model.Pregnancy;
 import com.alex.barselplus_backend.repository.MedicalHistoryRepository;
@@ -110,4 +109,35 @@ public class MedicalHistoryService {
         return convertToDTO(saved);
     }
 
+    public MedicalHistoryDTO updateMedicalHistory(Long pregnancyId, MedicalHistoryDTO dto) {
+        MedicalHistory existing = medicalHistoryRepository.findByPregnancy_PregnancyID(pregnancyId)
+                .orElseThrow(() -> new IllegalArgumentException("Medical history not found for pregnancy ID: " + pregnancyId));
+
+        existing.setChronicDiseases(dto.getChronicDiseases());
+        existing.setGeneticConditions(dto.getGeneticConditions());
+        existing.setSmokingUse(dto.getSmokingUse());
+        existing.setSnusUse(dto.getSnusUse());
+        existing.setAlcoholUse(dto.getAlcoholUse());
+        existing.setOtherDrugUse(dto.getOtherDrugUse());
+        existing.setMedications(dto.getMedications());
+        existing.setMedList(dto.getMedList());
+        existing.setDrugAllergy(dto.getDrugAllergy());
+        existing.setFolate(dto.getFolate());
+        existing.setNotes(dto.getNotes());
+
+        MedicalHistory.SubstanceUseSnapshot week1 = new MedicalHistory.SubstanceUseSnapshot();
+        week1.setSmoking(dto.getSmokingWeek1());
+        week1.setSnus(dto.getSnusWeek1());
+        week1.setAlcohol(dto.getAlcoholWeek1());
+        existing.setWeek1Use(week1);
+
+        MedicalHistory.SubstanceUseSnapshot week36 = new MedicalHistory.SubstanceUseSnapshot();
+        week36.setSmoking(dto.getSmokingWeek36());
+        week36.setSnus(dto.getSnusWeek36());
+        week36.setAlcohol(dto.getAlcoholWeek36());
+        existing.setWeek36Use(week36);
+
+        medicalHistoryRepository.save(existing);
+        return convertToDTO(existing);
+    }
 }
