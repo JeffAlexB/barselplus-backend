@@ -33,7 +33,7 @@ public class PregnancyController {
         }
     }
 
-    @PostMapping("/patient/{patientId}")
+    @PostMapping(path="/patient/{patientId}")
     public ResponseEntity<?> createPregnancy(@PathVariable Long patientId, @RequestBody @Valid PregnancyDTO dto) {
         try {
             PregnancyDTO saved = pregnancyService.createPregnancy(patientId, dto);
@@ -43,12 +43,12 @@ public class PregnancyController {
         }
     }
 
-    @GetMapping("/patient/{patientId}/pregnancies")
+    @GetMapping(path="/patient/{patientId}/pregnancies")
     public List<PregnancyDTO> getAllPregnancies(@PathVariable Long patientId) {
         return pregnancyService.getAllPregnanciesByPatient(patientId);
     }
 
-    @GetMapping("/testing")
+    @GetMapping(path="/testing")
     public String testEndpoint() {
         return "pregnancy controller is working?";
     }
