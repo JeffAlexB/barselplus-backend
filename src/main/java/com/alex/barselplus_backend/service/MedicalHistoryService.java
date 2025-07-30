@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 import static com.alex.barselplus_backend.mapper.MedicalHistoryMapper.toDTO;
+import static com.alex.barselplus_backend.mapper.MedicalHistoryMapper.toEntity;
 
 @Service
 public class MedicalHistoryService {
@@ -25,20 +26,10 @@ public class MedicalHistoryService {
     }
 
     public MedicalHistoryDTO getMedicalHistoryByID(Long pregnancyId) {
-        Optional<Pregnancy> optionalPregnancy = pregnancyRepository.findById(pregnancyId);
+        MedicalHistory history = medicalHistoryRepository.findByPregnancy_PregnancyID(pregnancyId)
+                .orElseThrow(() -> new RuntimeException("Medical history for pregnancy ID " + pregnancyId + " not found"));
 
-        if (optionalPregnancy.isPresent()) {
-            Pregnancy pregnancy = optionalPregnancy.get();
-            Optional<MedicalHistory> history = medicalHistoryRepository.findByPregnancy_PregnancyID(pregnancy.getPregnancyID());
-            if (history.isPresent()) {
-                MedicalHistory medicalHistory = history.get();
-                return toDTO(medicalHistory);
-            } else {
-                throw new RuntimeException("Medical history for pregnancy ID " + pregnancyId + " not found");
-            }
-        } else {
-            throw new RuntimeException("Pregnancy with ID " + pregnancyId + " not found");
-        }
+        return toDTO(history);
     }
 
     // straight copy of previous service layers, should this be pieced up for the layers to "fetch" from a helper class?
@@ -46,37 +37,8 @@ public class MedicalHistoryService {
         Pregnancy pregnancy = pregnancyRepository.findById(pregnancyId)
                 .orElseThrow(() -> new IllegalArgumentException("Pregnancy not found"));
 
-        // Map DTO to Entity
-        MedicalHistory history = new MedicalHistory();
-        history.setPregnancy(pregnancy);
-        history.setChronicDiseases(dto.getChronicDiseases());
-        history.setGeneticConditions(dto.getGeneticConditions());
-        history.setSmokingUse(dto.getSmokingUse());
-        history.setSnusUse(dto.getSnusUse());
-        history.setAlcoholUse(dto.getAlcoholUse());
-        history.setOtherDrugUse(dto.getOtherDrugUse());
-
-        MedicalHistory.SubstanceUseSnapshot week1 = new MedicalHistory.SubstanceUseSnapshot();
-        week1.setSmoking(dto.getSmokingWeek1());
-        week1.setSnus(dto.getSnusWeek1());
-        week1.setAlcohol(dto.getAlcoholWeek1());
-        history.setWeek1Use(week1);
-
-        MedicalHistory.SubstanceUseSnapshot week36 = new MedicalHistory.SubstanceUseSnapshot();
-        week36.setSmoking(dto.getSmokingWeek36());
-        week36.setSnus(dto.getSnusWeek36());
-        week36.setAlcohol(dto.getAlcoholWeek36());
-        history.setWeek36Use(week36);
-
-        history.setMedications(dto.getMedications());
-        history.setMedList(dto.getMedList());
-        history.setDrugAllergy(dto.getDrugAllergy());
-        history.setFolate(dto.getFolate());
-        history.setNotes(dto.getNotes());
-
-        // Save to DB
+        MedicalHistory history = toEntity(dto, pregnancy);
         MedicalHistory saved = medicalHistoryRepository.save(history);
-
         return toDTO(saved);
     }
 
