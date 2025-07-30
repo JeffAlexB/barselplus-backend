@@ -1,6 +1,7 @@
 package com.alex.barselplus_backend.service;
 
 import com.alex.barselplus_backend.dto.MedicalHistoryDTO;
+
 import com.alex.barselplus_backend.model.MedicalHistory;
 import com.alex.barselplus_backend.model.Pregnancy;
 import com.alex.barselplus_backend.repository.MedicalHistoryRepository;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+
+import static com.alex.barselplus_backend.mapper.MedicalHistoryMapper.toDTO;
 
 @Service
 public class MedicalHistoryService {
@@ -29,45 +32,13 @@ public class MedicalHistoryService {
             Optional<MedicalHistory> history = medicalHistoryRepository.findByPregnancy_PregnancyID(pregnancy.getPregnancyID());
             if (history.isPresent()) {
                 MedicalHistory medicalHistory = history.get();
-                return convertToDTO(medicalHistory);
+                return toDTO(medicalHistory);
             } else {
                 throw new RuntimeException("Medical history for pregnancy ID " + pregnancyId + " not found");
             }
         } else {
             throw new RuntimeException("Pregnancy with ID " + pregnancyId + " not found");
         }
-    }
-
-    private MedicalHistoryDTO convertToDTO(MedicalHistory medicalHistory) {
-        MedicalHistoryDTO dto = new MedicalHistoryDTO();
-        dto.setChronicDiseases(medicalHistory.getChronicDiseases());
-        dto.setGeneticConditions(medicalHistory.getGeneticConditions());
-        dto.setSmokingUse(medicalHistory.getSmokingUse());
-        dto.setSnusUse(medicalHistory.getSnusUse());
-        dto.setAlcoholUse(medicalHistory.getAlcoholUse());
-        dto.setOtherDrugUse(medicalHistory.getOtherDrugUse());
-
-        // Week 1 embedded values?
-        if (medicalHistory.getWeek1Use() != null) {
-            dto.setSmokingWeek1(medicalHistory.getWeek1Use().getSmoking());
-            dto.setSnusWeek1(medicalHistory.getWeek1Use().getSnus());
-            dto.setAlcoholWeek1(medicalHistory.getWeek1Use().getAlcohol());
-        }
-
-        // Week 36 embedded values?
-        if (medicalHistory.getWeek36Use() != null) {
-            dto.setSmokingWeek36(medicalHistory.getWeek36Use().getSmoking());
-            dto.setSnusWeek36(medicalHistory.getWeek36Use().getSnus());
-            dto.setAlcoholWeek36(medicalHistory.getWeek36Use().getAlcohol());
-        }
-
-        dto.setMedications(medicalHistory.getMedications());
-        dto.setMedList(medicalHistory.getMedList());
-        dto.setDrugAllergy(medicalHistory.getDrugAllergy());
-        dto.setFolate(medicalHistory.getFolate());
-        dto.setNotes(medicalHistory.getNotes());
-
-        return dto;
     }
 
     // straight copy of previous service layers, should this be pieced up for the layers to "fetch" from a helper class?
@@ -106,7 +77,7 @@ public class MedicalHistoryService {
         // Save to DB
         MedicalHistory saved = medicalHistoryRepository.save(history);
 
-        return convertToDTO(saved);
+        return toDTO(saved);
     }
 
     public MedicalHistoryDTO updateMedicalHistory(Long pregnancyId, MedicalHistoryDTO dto) {
@@ -138,6 +109,6 @@ public class MedicalHistoryService {
         existing.setWeek36Use(week36);
 
         medicalHistoryRepository.save(existing);
-        return convertToDTO(existing);
+        return toDTO(existing);
     }
 }
