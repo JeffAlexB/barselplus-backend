@@ -37,7 +37,7 @@ public class PartnerService {
     }
 
     public PartnerDTO createPartner(Long patientId, PartnerDTO dto){
-        Optional <Partner> optionalPartner = partnerRepository.findByPatient_PatientID(patientId);
+        Optional<Partner> optionalPartner = partnerRepository.findByPatient_PatientID(patientId);
         if (optionalPartner.isPresent()){
             throw new IllegalArgumentException("Partner already exists");
         }

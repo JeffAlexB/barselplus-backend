@@ -1,32 +1,21 @@
 package com.alex.barselplus_backend.controller;
 
 import com.alex.barselplus_backend.dto.MedicalHistoryDTO;
-import com.alex.barselplus_backend.model.MedicalHistory;
-import com.alex.barselplus_backend.model.Pregnancy;
-import com.alex.barselplus_backend.repository.MedicalHistoryRepository;
-import com.alex.barselplus_backend.repository.PregnancyRepository;
 import com.alex.barselplus_backend.service.MedicalHistoryService;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @RestController
 @RequestMapping(path = "/api/pregnancies")
 public class MedicalHistoryController {
-    private final MedicalHistoryRepository medicalHistoryRepository;
     private final MedicalHistoryService medicalHistoryService;
-    private final PregnancyRepository pregnancyRepository;
 
     @Autowired
-    public MedicalHistoryController(MedicalHistoryRepository medicalHistoryRepository, MedicalHistoryService medicalHistoryService, PregnancyRepository pregnancyRepository) {
-        this.medicalHistoryRepository = medicalHistoryRepository;
+    public MedicalHistoryController(MedicalHistoryService medicalHistoryService) {
         this.medicalHistoryService = medicalHistoryService;
-        this.pregnancyRepository = pregnancyRepository;
     }
 
     @GetMapping(path="/{pregnancyId}/medical-history")

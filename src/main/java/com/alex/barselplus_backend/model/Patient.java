@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Getter
@@ -62,4 +63,7 @@ public class Patient {
 
     @Column(name = "interpreter_needed")
     private Boolean interpreterNeeded;
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    private List<Pregnancy> pregnancies;
 }

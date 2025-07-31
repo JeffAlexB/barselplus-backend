@@ -33,6 +33,17 @@ public class PregnancyController {
         }
     }
 
+    // unsure if this will work at length - duck-taped together(?)
+    @GetMapping(path="/patient/{patientId}/pregnancies")
+    public ResponseEntity<List<PregnancyDTO>> getAllPregnancies(@PathVariable Long patientId) {
+        List<PregnancyDTO> pregnancies = pregnancyService.getAllPregnanciesByPatient(patientId);
+
+        if (pregnancies.isEmpty()) {
+            return ResponseEntity.noContent().build(); // HTTP 204
+        }
+        return ResponseEntity.ok(pregnancies); // HTTP 200
+    }
+
     @PostMapping(path="/patient/{patientId}")
     public ResponseEntity<?> createPregnancy(@PathVariable Long patientId, @RequestBody @Valid PregnancyDTO dto) {
         try {
@@ -43,9 +54,19 @@ public class PregnancyController {
         }
     }
 
-    @GetMapping(path="/patient/{patientId}/pregnancies")
-    public List<PregnancyDTO> getAllPregnancies(@PathVariable Long patientId) {
-        return pregnancyService.getAllPregnanciesByPatient(patientId);
+    @PutMapping(path="/{pregnancyId}")
+    public ResponseEntity<PregnancyDTO> updatePregnancy(
+            @PathVariable Long pregnancyId,
+            @RequestBody @Valid PregnancyDTO dto) {
+        try {
+            if (dto == null) {
+                throw new IllegalArgumentException("Update data can't be null");
+            }
+            PregnancyDTO update = pregnancyService.updatePregnancy(pregnancyId, dto);
+            return ResponseEntity.ok(update);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @GetMapping(path="/testing")
