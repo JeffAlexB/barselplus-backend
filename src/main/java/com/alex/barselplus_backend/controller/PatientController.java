@@ -40,6 +40,9 @@ public class PatientController {
             @PathVariable Long nationalId,
             @RequestBody PatientDTO dto) {
         try {
+            if (dto == null) {
+                throw new IllegalArgumentException("Update data can't be null");
+            }
             PatientDTO update = patientService.updatePatient(dto, nationalId);
             return ResponseEntity.ok(update);
         } catch (IllegalArgumentException e) {
