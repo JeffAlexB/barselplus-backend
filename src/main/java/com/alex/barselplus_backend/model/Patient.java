@@ -31,7 +31,7 @@ public class Patient {
     private LocalDate dateOfBirth;
 
     @Column(name = "national_ID", unique = true, nullable = false)
-    private Integer nationalID;
+    private Long nationalID;
 
     @Column(name = "address", columnDefinition = "TEXT")
     private String address;
