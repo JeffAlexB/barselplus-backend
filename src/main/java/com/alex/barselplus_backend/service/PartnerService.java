@@ -1,24 +1,28 @@
 package com.alex.barselplus_backend.service;
 
 import com.alex.barselplus_backend.dto.PartnerDTO;
+import com.alex.barselplus_backend.mapper.PartnerMapper;
 import com.alex.barselplus_backend.model.Partner;
 import com.alex.barselplus_backend.model.Patient;
 import com.alex.barselplus_backend.repository.PartnerRepository;
 import com.alex.barselplus_backend.repository.PatientRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+import static com.alex.barselplus_backend.mapper.PartnerMapper.*;
+
 @Service
 public class PartnerService {
-    private final PatientRepository patientRepository;
     private final PartnerRepository partnerRepository;
+    private final PatientRepository patientRepository;
 
     @Autowired
-    public PartnerService(PatientRepository patientRepository, PartnerRepository partnerRepository) {
-        this.patientRepository = patientRepository;
+    public PartnerService(PartnerRepository partnerRepository, PatientRepository patientRepository) {
         this.partnerRepository = partnerRepository;
+        this.patientRepository = patientRepository;
     }
 
     public PartnerDTO getPartnerByPatientId(long patientId) {
@@ -26,36 +30,32 @@ public class PartnerService {
 
         if (optionalPartner.isPresent()){
             Partner partner = optionalPartner.get();
-            return convertToDTO(partner);
+            return toDTO(partner);
         } else {
             throw new RuntimeException("Partner not found");
         }
     }
 
-    private PartnerDTO convertToDTO(Partner partner) {
-        PartnerDTO dto = new PartnerDTO();
-        dto.setFirstName(partner.getFirst_name());
-        dto.setLastName(partner.getLast_name());
-        dto.setDateOfBirth(partner.getDate_of_birth());
-        dto.setPhoneNumber(partner.getPhoneNumber());
-        dto.setOccupation(partner.getOccupation());
-        return dto;
+    public PartnerDTO createPartner(Long patientId, PartnerDTO dto){
+        Optional <Partner> optionalPartner = partnerRepository.findByPatient_PatientID(patientId);
+        if (optionalPartner.isPresent()){
+            throw new IllegalArgumentException("Partner already exists");
+        }
+        Patient patient = patientRepository.findById(patientId)
+                .orElseThrow(() -> new EntityNotFoundException("Patient not found"));
+
+        Partner entity = toEntity(dto);
+        entity.setPatient(patient);
+        Partner savedPartner = partnerRepository.save(entity);
+        return toDTO(savedPartner);
     }
 
-    public PartnerDTO createPartner(Long patientId, PartnerDTO dto){
-        Patient patient = patientRepository.findById(patientId)
-                .orElseThrow(()-> new IllegalArgumentException("Patient not found"));
+    public PartnerDTO updatePartner(Long patientId, PartnerDTO dto){
+        Partner partner = partnerRepository.findByPatient_PatientID(patientId)
+                .orElseThrow(() -> new EntityNotFoundException("Partner not found for patient: " + patientId));
 
-        // DTO conversion
-        Partner partner = new Partner();
-        partner.setPatient(patient);
-        partner.setFirst_name(dto.getFirstName());
-        partner.setLast_name(dto.getLastName());
-        partner.setDate_of_birth(dto.getDateOfBirth());
-        partner.setPhoneNumber(dto.getPhoneNumber());
-        partner.setOccupation(dto.getOccupation());
-
-        Partner savedPartner = partnerRepository.save(partner);
-        return convertToDTO(savedPartner);
+        updateDTO(partner, dto);
+        partnerRepository.save(partner);
+        return PartnerMapper.toDTO(partner);
     }
 }

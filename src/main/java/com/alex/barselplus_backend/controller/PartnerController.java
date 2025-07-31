@@ -45,6 +45,20 @@ public class PartnerController {
 
     }
 
+    @PutMapping(path="/{patientID}")
+    public ResponseEntity<PartnerDTO> updatePartner(
+            @PathVariable Long patientID,
+            @RequestBody PartnerDTO dto) {
+        try {
+            if (dto == null) {
+                throw new IllegalArgumentException("Update data can't be null");
+            }
+            PartnerDTO update = partnerService.updatePartner(patientID, dto);
+            return ResponseEntity.ok(update);
+        } catch (IllegalArgumentException e) {
+        return ResponseEntity.badRequest().build();}
+    }
+
     @GetMapping("/testing")
     public String testEndpoint() {
         return "partner controller is working?";
