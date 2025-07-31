@@ -18,9 +18,14 @@ public class PatientController {
     }
 
     @GetMapping(path ="/{nationalId}")
-    public PatientDTO findPatientByNationalId(@PathVariable Long nationalId) {
+    public ResponseEntity<?> findPatientByNationalId(@PathVariable Long nationalId) {
         //System.out.println("Fetching patient with nationalID: " + nationalId); //debug
-        return patientService.findPatientByNationalID(nationalId);
+        try {
+            PatientDTO dto = patientService.findPatientByNationalID(nationalId);
+            return ResponseEntity.ok(dto);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(404).body("Patient not found");
+        }
     }
 
     @PostMapping(path="/{nationalId}")
