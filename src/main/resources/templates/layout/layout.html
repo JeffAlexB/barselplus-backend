@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:replace="${pageTitle} ?: 'BarselPlus'">BarselPlus</title>
+
+    <!-- Bootstrap CSS (CDN) for styling -->
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+
+    <!-- HTMX stuff -->
+    <script src="https://unpkg.com/htmx.org@1.9.4"></script>
+</head>
+<body>
+<!-- Navigation Bar -->
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<!-- Main Div -->
+<main class="container mt-4">
+    <div th:replace="${body}">Page content goes here?</div>
+</main>
+
+<!-- Bootstrap JS, tentative atm -->
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
+</script>
+</body>
+</html>
