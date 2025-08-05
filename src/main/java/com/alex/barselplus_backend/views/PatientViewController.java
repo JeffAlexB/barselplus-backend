@@ -27,4 +27,9 @@ public class PatientViewController {
         model.addAttribute("patient", patient);
         return "patient/list";
     }
+
+    @GetMapping("/test")
+    public String testLayout() {
+        return "patient/test";
+    }
 }
