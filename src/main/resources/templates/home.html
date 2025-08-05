@@ -1,11 +1,24 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en-US">
 <div th:replace="~{layout/layout :: layout('Home Page', ~{::section})}">
   <section>
     <div class="text-center">
       <h2>Welcome to BarselPlus</h2>
       <p>This is your starting page.</p>
     </div>
+
+    <button
+            class="btn btn-primary"
+            hx-get="/patients/fragment/123456789"
+            hx-target="#patientDetails"
+            hx-swap="innerHTML">
+      Load Patient Info
+    </button>
+
+    <div id="patientDetails">
+      <!-- HTMX will replace this -->
+    </div>
+
   </section>
 </div>
 </html>
