@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="card">
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 th:text="${patient.firstName} + ' ' + ${patient.lastName}">Jane Doe</h5>
+            <p><strong>DOB:</strong> <span th:text="${patient.dateOfBirth}"></span></p>
+            <p><strong>Phone:</strong> <span th:text="${patient.phoneNumber}"></span></p>
+            <p><strong>Occupation:</strong> <span th:text="${patient.occupation}"></span></p>
+        </div>
+    </div>
+</div>
+</html>

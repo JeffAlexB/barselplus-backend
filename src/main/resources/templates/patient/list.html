@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{layout/layout :: layout('Patient Dashboard', ~{::section})}">
+  <section>
+    <div class="container">
+      <h2 class="mb-4">Welcome, <span th:text="${patient.firstName} + ' ' + ${patient.lastName}">Tester test</span></h2>
+
+      <div class="card mb-3">
+        <div class="card-body">
+          <p><strong>Date of Birth:</strong> <span th:text="${patient.dateOfBirth}">1994-28</span></p>
+          <p><strong>Phone:</strong> <span th:text="${patient.phoneNumber}">+47 476 68 507</span></p>
+          <p><strong>Occupation:</strong> <span th:text="${patient.occupation}">Nurse</span></p>
+        </div>
+      </div>
+
+      <a href="#" class="btn btn-primary">Edit Info</a>
+    </div>
+  </section>
+</div>
+</html>

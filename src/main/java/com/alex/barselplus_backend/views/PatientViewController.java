@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(path="/patients")
+@RequestMapping("/patients")
 public class PatientViewController {
     private final PatientService patientService;
 
@@ -20,16 +20,9 @@ public class PatientViewController {
 
     @GetMapping
     public String getPatientDashboard(Model model) {
-        // Hardcoded ID for testing
-        PatientDTO patient = patientService.findPatientByNationalID(123456789);
-        System.out.println("Patient loaded: " + patient.getFirstName());
-
+        // Hardcoded National ID until login system is in place
+        PatientDTO patient = patientService.findPatientByNationalID(123456789L);
         model.addAttribute("patient", patient);
         return "patient/list";
-    }
-
-    @GetMapping("/test")
-    public String testLayout() {
-        return "patient/test";
     }
 }
