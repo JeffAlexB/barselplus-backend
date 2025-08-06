@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
   <meta charset="UTF-8">
@@ -6,47 +7,18 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
 <div th:replace="~{layout/layout :: layout('Dashboard', ~{::section})}">
-  <!-- Navbar stuff -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/" th:href="@{/}">BarselPlus</a>
 
-      <!-- Toggle button -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <!-- Individual navbar stuff -->
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <a class="nav-link" th:href="@{/home}">Dashboard</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" th:href="@{/partner}">Partner</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" th:href="@{/pregnancies}">Pregnancy</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" th:href="@{/home}">Logout</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
   <section>
     <div class="container">
 
       <!-- HTMX enabled action buttons-->
-      <div class="text-center my-4">
+      <div class="text-center my-2">
         <h2>Welcome to BarselPlus</h2>
         <p class="lead">Choose a section to view or update your details</p>
       </div>
 
       <div class="row">
-        <div class="col-md-6 col-lg-4 mb-3">
+        <div class="col-md-6 col-lg-3 mb-3">
           <button
                   class="btn btn-primary w-100"
                   hx-get="/patients/fragment/123456789"
@@ -57,14 +29,23 @@
           </button>
         </div>
 
-        <div class="col-md-6 col-lg-4 mb-3">
-          <a href="#" class="btn btn-primary w-100">Partner Info</a>
+        <div class="col-md-6 col-lg-3 mb-3">
+          <button
+                  class="btn btn-primary w-100"
+                  hx-get="partner/fragment/123456789"
+                  hx-target="#dynamicContent"
+                  hx-swap="innerHTML"
+                  hx-indicator="#hxSpinner">
+            Partner Details
+          </button>
+        </div>
+
         </div>
         <div class="col-md-6 col-lg-4 mb-3">
-          <a href="#" class="btn btn-primary w-100">Pregnancies</a>
+          <a th:href="@{/pregnancies}" class="btn btn-primary w-100">Pregnancies</a>
         </div>
         <div class="col-md-6 col-lg-4 mb-3">
-          <a href="#" class="btn btn-secondary w-100">Logout</a>
+          <a th:href="@{/}" class="btn btn-primary w-100">Logout</a>
         </div>
         <!-- should this be here or somewhere inside the individual pregnancy pages?
         <div class="col-md-6 col-lg-4 mb-3">
@@ -84,6 +65,5 @@
       </div>
     </div>
   </section>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </div>
 </html>

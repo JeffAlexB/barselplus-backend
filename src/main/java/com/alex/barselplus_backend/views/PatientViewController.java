@@ -31,6 +31,6 @@ public class PatientViewController {
     public String getPatientFragment(@PathVariable Long id, Model model) {
         PatientDTO patient = patientService.findPatientByNationalID(id);
         model.addAttribute("patient", patient);
-        return "fragments/patient :: card";
+        return "fragments/patient :: patientFragment";
     }
 }

@@ -1,12 +1,14 @@
-<!DOCTYPE html>
-
-<div th:fragment="card">
+<!-- patient/fragment.html -->
+<div xmlns:th="http://www.thymeleaf.org"  th:fragment="patientFragment">
+    <h3 class="mb-3">Patient Information</h3>
     <div class="card mb-3">
         <div class="card-body">
-            <h5 th:text="${patient.firstName} + ' ' + ${patient.lastName}"></h5>
-            <p><strong>DOB:</strong> <span th:text="${patient.dateOfBirth}"></span></p>
-            <p><strong>Phone:</strong> <span th:text="${patient.phoneNumber}"></span></p>
-            <p><strong>Occupation:</strong> <span th:text="${patient.occupation}"></span></p>
+            <h5 th:text="${patient.firstName} + ' ' + ${patient.lastName}">testing</h5>
+            <p><strong>Date of Birth:</strong> <span th:text="${patient.dateOfBirth}">testing</span></p>
+            <p><strong>Phone Number:</strong> <span th:text="${patient.phoneNumber}">testing</span></p>
+            <p><strong>Occupation:</strong> <span th:text="${patient.occupation}">testing</span></p>
         </div>
     </div>
+
+    <a href="/home" class="btn btn-outline-secondary mt-3">Back to Dashboard</a>
 </div>

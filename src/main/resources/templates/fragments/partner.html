@@ -1,0 +1,14 @@
+<!-- partner/fragment.html -->
+<div xmlns:th="http://www.thymeleaf.org" th:fragment="partnerFragment">
+  <h3 class="mb-3">Partner Information</h3>
+  <div class="card mb-3">
+    <div class="card-body">
+      <h5 th:text="${partner.firstName} + ' ' + ${partner.lastName}">testing</h5>
+      <p><strong>Date of Birth:</strong> <span th:text="${partner.dateOfBirth}">testing</span></p>
+      <p><strong>Phone Number:</strong> <span th:text="${partner.phoneNumber}">testing</span></p>
+      <p><strong>Occupation:</strong> <span th:text="${partner.occupation}">testing</span></p>
+    </div>
+  </div>
+
+  <a href="/home" class="btn btn-outline-secondary mt-3">Back to Dashboard</a>
+</div>
