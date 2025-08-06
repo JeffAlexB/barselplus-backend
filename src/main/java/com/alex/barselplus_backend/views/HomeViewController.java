@@ -6,13 +6,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeViewController {
 
-    @GetMapping("/")
+    @GetMapping("/home")
     public String homePage() {
         return "dashboard";
     }
-
+    /*
     @GetMapping("/home")
     public String redirectToRoot() {
         return "redirect:/";
-    }
+    }*/
 }
