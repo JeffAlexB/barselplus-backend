@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.Mapping;
 public class PregnancyMapper {
     public static PregnancyDTO toDTO(Pregnancy pregnancy) {
         PregnancyDTO dto = new PregnancyDTO();
+        dto.setPregnancyId(pregnancy.getPregnancyID());
+        dto.setPatientId(pregnancy.getPatient().getPatientID().longValue());
         dto.setLastMens(pregnancy.getLastMens());
         dto.setDueDate(pregnancy.getDueDate());
         dto.setMultipleFetus(pregnancy.getMultipleFetus());

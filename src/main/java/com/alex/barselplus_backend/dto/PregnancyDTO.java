@@ -12,6 +12,9 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PregnancyDTO {
+    private Long pregnancyId;
+    private Long patientId;
+
     private LocalDate lastMens;
     private LocalDate dueDate;
     private Boolean multipleFetus;
