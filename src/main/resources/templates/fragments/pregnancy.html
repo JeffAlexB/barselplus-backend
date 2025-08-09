@@ -1,6 +1,7 @@
 <!-- fragments/pregnancy.html -->
 <div xmlns:th="http://www.thymeleaf.org">
 
+  <!-- LIST FRAGMENT -->
   <div th:fragment="list">
     <h3 class="mb-3">Pregnancies</h3>
 
@@ -15,8 +16,8 @@
             <h5 class="card-title">
               Pregnancy starting <span th:text="${p.lastMens}">testing</span>
             </h5>
-            <p><strong>Due Date:</strong> <span th:text="${p.dueDate}">testing</span></p>
-            <p><strong>Multiple Fetuses:</strong> <span th:text="${p.multipleFetus} ? 'Yes' : 'No'">testing</span></p>
+            <p class="mb-1"><strong>Due Date:</strong> <span th:text="${p.dueDate}">testing</span></p>
+            <p class="mb-1"><strong>Multiple Fetuses:</strong> <span th:text="${p.multipleFetus} ? 'Yes' : 'No'">testing</span></p>
           </div>
           <div class="card-footer bg-transparent border-0">
             <button
@@ -24,6 +25,7 @@
                     th:attr="hx-get=@{'/pregnancies/detail/' + ${p.pregnancyId}}"
                     hx-target="#dynamicContent"
                     hx-swap="innerHTML"
+                    hx-indicator="#hxSpinner"
                     hx-push-url="true">
               View details
             </button>
@@ -36,4 +38,32 @@
       <a href="/home" class="btn btn-outline-secondary">Back to Dashboard</a>
     </div>
   </div>
+
+  <!-- DETAIL FRAGMENT -->
+  <div th:fragment="detail">
+    <h3 class="mb-3">Pregnancy Details</h3>
+
+    <div class="card mb-3">
+      <div class="card-body">
+        <p><strong>Last Menstrual Period:</strong> <span th:text="${pregnancy.lastMens}">testing</span></p>
+        <p><strong>Due Date:</strong> <span th:text="${pregnancy.dueDate}">testing</span></p>
+        <p><strong>Multiple Fetuses:</strong> <span th:text="${pregnancy.multipleFetus} ? 'Yes' : 'No'">testing</span></p>
+        <p><strong>Pre-pregnancy Height:</strong> <span th:text="${pregnancy.prePregnancyHeight} + ' cm'">testing</span></p>
+        <p><strong>Pre-pregnancy Weight:</strong> <span th:text="${pregnancy.prePregnancyWeight} + ' kg'">testing</span></p>
+        <p><strong>Maternity Ward:</strong> <span th:text="${pregnancy.maternityWard}">testing</span></p>
+      </div>
+    </div>
+
+    <div class="mt-3">
+      <button class="btn btn-outline-primary"
+              th:attr="hx-get=@{'/pregnancies/fragment/' + ${pregnancy.patientId}}"
+              hx-target="#dynamicContent"
+              hx-swap="innerHTML"
+              hx-indicator="#hxSpinner"
+              hx-push-url="true">
+        Back to pregnancies
+      </button>
+    </div>
+  </div>
+
 </div>

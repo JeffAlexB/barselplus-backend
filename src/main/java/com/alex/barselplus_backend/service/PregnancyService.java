@@ -42,7 +42,7 @@ public class PregnancyService {
     public List<PregnancyDTO> getAllPregnanciesByPatient(Long patientId) {
         return pregnancyRepository.findAllByPatient_PatientID(patientId)
                 .stream()
-                .map(PregnancyMapper::toDTO) // from static import
+                .map(PregnancyMapper::toDTO)
                 .toList();
     }
 

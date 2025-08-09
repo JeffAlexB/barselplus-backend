@@ -19,6 +19,7 @@ public class PregnancyViewController {
         this.pregnancyService = pregnancyService;
     }
 
+    /*
     // Full page view
     @GetMapping
     public String pregnanciesPage(@RequestParam(name="patientId", required=false) Long patientId,
@@ -28,7 +29,7 @@ public class PregnancyViewController {
         model.addAttribute("patientId", pid);
         model.addAttribute("pregnancies", pregnancyService.getAllPregnanciesByPatient(pid));
         return "pregnancy/list";
-    }
+    }*/
 
     // HTMX fragments
     @GetMapping("/fragment/{patientId}")
