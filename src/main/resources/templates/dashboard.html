@@ -24,26 +24,34 @@
                   hx-get="/patients/fragment/123456789"
                   hx-target="#dynamicContent"
                   hx-swap="innerHTML"
-                  hx-indicator="#hxSpinner">
+                  hx-indicator="#hxSpinner"
+                  hx-push-url="true">
             Patient Details
           </button>
         </div>
-
         <div class="col-md-6 col-lg-3 mb-3">
           <button
                   class="btn btn-primary w-100"
                   hx-get="partner/fragment/1"
                   hx-target="#dynamicContent"
                   hx-swap="innerHTML"
-                  hx-indicator="#hxSpinner">
+                  hx-indicator="#hxSpinner"
+                  hx-push-url="true">
             Partner Details
           </button>
         </div>
-
+        <div class="col-md-6 col-lg-3 mb-3">
+          <button
+                  class="btn btn-primary w-100"
+                  hx-get="/pregnancies/fragment/1"
+                  hx-target="#dynamicContent"
+                  hx-swap="innerHTML"
+                  hx-indicator="#hxSpinner"
+                  hx-push-url="true">
+            Pregnancies
+          </button>
         </div>
-        <div class="col-md-6 col-lg-4 mb-3">
-          <a th:href="@{/pregnancies}" class="btn btn-primary w-100">Pregnancies</a>
-        </div>
+      </div>
         <div class="col-md-6 col-lg-4 mb-3">
           <a th:href="@{/}" class="btn btn-primary w-100">Logout</a>
         </div>
