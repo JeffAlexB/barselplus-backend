@@ -21,7 +21,8 @@ public class PregnancyService {
     private final PregnancyRepository pregnancyRepository;
 
     @Autowired
-    public PregnancyService(PatientRepository patientRepository, PregnancyRepository pregnancyRepository) {
+    public PregnancyService(PatientRepository patientRepository,
+                            PregnancyRepository pregnancyRepository) {
         this.patientRepository = patientRepository;
         this.pregnancyRepository = pregnancyRepository;
     }
@@ -39,11 +40,16 @@ public class PregnancyService {
 
     // down-the-road functionality
     public List<PregnancyDTO> getAllPregnanciesByPatient(Long patientId) {
-        List<Pregnancy> pregnancies = pregnancyRepository.findAllByPatient_PatientID(patientId);
-
-        return pregnancies.stream()
-                .map(PregnancyMapper::toDTO)
+        return pregnancyRepository.findAllByPatient_PatientID(patientId)
+                .stream()
+                .map(PregnancyMapper::toDTO) // from static import
                 .toList();
+    }
+
+    public PregnancyDTO getById(long pregnancyId) {
+        var entity = pregnancyRepository.findById(pregnancyId)
+                .orElseThrow(() -> new RuntimeException("Pregnancy not found with ID: " + pregnancyId));
+        return toDTO(entity);
     }
 
     public PregnancyDTO createPregnancy(Long patientId, PregnancyDTO dto){

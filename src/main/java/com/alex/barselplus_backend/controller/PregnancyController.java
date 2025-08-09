@@ -26,7 +26,7 @@ public class PregnancyController {
             return ResponseEntity.badRequest().body("Invalid pregnancy ID");
         }
         try {
-            PregnancyDTO dto = pregnancyService.getPregnancyById(pregnancyId); // ok
+            PregnancyDTO dto = pregnancyService.getPregnancyById(pregnancyId);
             return ResponseEntity.ok(dto);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();

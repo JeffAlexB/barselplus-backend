@@ -3,6 +3,7 @@ package com.alex.barselplus_backend.mapper;
 import com.alex.barselplus_backend.dto.PregnancyDTO;
 import com.alex.barselplus_backend.model.Patient;
 import com.alex.barselplus_backend.model.Pregnancy;
+import org.springframework.web.bind.annotation.Mapping;
 
 public class PregnancyMapper {
     public static PregnancyDTO toDTO(Pregnancy pregnancy) {
