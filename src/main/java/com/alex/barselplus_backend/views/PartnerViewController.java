@@ -21,9 +21,13 @@ public class PartnerViewController {
     }
 
     @GetMapping
-    public String getPartnerDashboard(Model model) {
+    public String getPartnerPage(Model model) {
         // Hardcoded National ID until login system is in place
-        PartnerDTO partner = partnerService.getPartnerByPatientId(123456789L);
+        PartnerDTO partner = partnerService.getPartnerByPatientId(1L);
+        if (partner == null) {
+            model.addAttribute("error", "Partner not found");
+            return "partner/list"; // still render, just empty
+        }
         model.addAttribute("partner", partner);
         return "partner/list";
     }

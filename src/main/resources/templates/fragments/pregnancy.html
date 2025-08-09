@@ -55,6 +55,9 @@
     </div>
 
     <div class="mt-3">
+      <a href="/home" class="btn btn-outline-secondary">Back to Dashboard</a>
+    </div>
+    <div class="mt-3">
       <button class="btn btn-outline-primary"
               th:attr="hx-get=@{'/pregnancies/fragment/' + ${pregnancy.patientId}}"
               hx-target="#dynamicContent"

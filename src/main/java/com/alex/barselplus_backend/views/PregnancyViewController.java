@@ -19,17 +19,16 @@ public class PregnancyViewController {
         this.pregnancyService = pregnancyService;
     }
 
-    /*
     // Full page view
     @GetMapping
-    public String pregnanciesPage(@RequestParam(name="patientId", required=false) Long patientId,
+    public String getPregnanciesPage(@RequestParam(name="patientId", required=false) Long patientId,
                                   Model model) {
         // hardcoded for testing
         long pid = (patientId != null) ? patientId : 1L;
         model.addAttribute("patientId", pid);
         model.addAttribute("pregnancies", pregnancyService.getAllPregnanciesByPatient(pid));
         return "pregnancy/list";
-    }*/
+    }
 
     // HTMX fragments
     @GetMapping("/fragment/{patientId}")
