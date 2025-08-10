@@ -19,15 +19,24 @@
             <p class="mb-1"><strong>Due Date:</strong> <span th:text="${p.dueDate}">testing</span></p>
             <p class="mb-1"><strong>Multiple Fetuses:</strong> <span th:text="${p.multipleFetus} ? 'Yes' : 'No'">testing</span></p>
           </div>
-          <div class="card-footer bg-transparent border-0">
+          <div class="card-footer bg-transparent border-0 d-grid gap-2">
+            <!-- Details button -->
             <button
                     class="btn btn-outline-primary w-100"
                     th:attr="hx-get=@{'/pregnancies/detail/' + ${p.pregnancyId}}"
                     hx-target="#dynamicContent"
                     hx-swap="innerHTML"
-                    hx-indicator="#hxSpinner"
                     hx-push-url="true">
               View details
+            </button>
+            <!-- Medical History button -->
+            <button
+                    class="btn btn-outline-secondary w-100"
+                    th:attr="hx-get=@{'/medical-history/fragment/' + ${p.pregnancyId}}"
+                    hx-target="#dynamicContent"
+                    hx-swap="innerHTML"
+                    hx-push-url="true">
+              Medical History
             </button>
           </div>
         </div>
