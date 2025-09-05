@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.alex</groupId>
-	<artifactId>barselplus-backend</artifactId>
+	<artifactId>barselplus-vertical</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>barselplus-backend</name>
 	<description>Backend for BarselPlus application</description>

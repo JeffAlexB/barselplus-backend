@@ -1,0 +1,123 @@
+/* BarselPlus Theme V.0 */
+
+/* Brand palette */
+:root {
+    /* Core brand */
+    --bp-blue: #1e90ff;      /* primary blue (buttons/nav) */
+    --bp-blue-600: #1879d6;  /* hover */
+    --bp-ink: #1f2937;       /* headings text */
+    --bp-text: #334155;      /* body text */
+
+    /* Surfaces */
+    --bp-beige: #f7ecd9;     /* soft card background from mockup */
+    --bp-panel: #ffffff;     /* white panels */
+    --bp-page: #f8fafc;      /* page bg (very light) */
+
+    /* Accents / status (optional, for alerts etc.) */
+    --bp-success: #22c55e;
+    --bp-warning: #f59e0b;
+    --bp-danger:  #ef4444;
+}
+
+/* Override Bootstrap’s CSS variables (light mode) */
+:root {
+    --bs-body-bg: var(--bp-page);
+    --bs-body-color: var(--bp-text);
+
+    --bs-primary: var(--bp-blue);
+    --bs-primary-rgb: 30,144,255;
+
+    --bs-link-color: var(--bp-blue);
+    --bs-link-hover-color: var(--bp-blue-600);
+
+    --bs-border-radius: 1rem; /* softer corners app-wide */
+    --bs-border-radius-lg: 1.25rem;
+    --bs-border-radius-sm: .5rem;
+}
+
+/* Navbar */
+.navbar.bg-primary {
+    background-color: var(--bp-blue) !important;
+}
+.navbar .navbar-brand,
+.navbar .nav-link {
+    color: #fff !important;
+}
+.navbar .nav-link.active,
+.navbar .nav-link:hover {
+    opacity: .9;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--bp-blue);
+    border-color: var(--bp-blue);
+}
+.btn-primary:hover {
+    background-color: var(--bp-blue-600);
+    border-color: var(--bp-blue-600);
+}
+.btn-outline-primary {
+    color: var(--bp-blue);
+    border-color: var(--bp-blue);
+}
+.btn-outline-primary:hover {
+    background-color: var(--bp-blue);
+    border-color: var(--bp-blue);
+    color: #fff;
+}
+
+/* Cards */
+.card.bp-soft {
+    background-color: var(--bp-beige);
+    border: none;
+    border-radius: 1.25rem;
+    box-shadow: 0 8px 24px rgba(2, 6, 23, 0.06);
+}
+.card.bp-panel {
+    background-color: var(--bp-panel);
+    border: 1px solid rgba(15, 23, 42, 0.06);
+    border-radius: 1.25rem;
+    box-shadow: 0 6px 20px rgba(2, 6, 23, 0.04);
+}
+.card .card-title {
+    color: var(--bp-ink);
+}
+
+/* Hero / welcome block */
+.bp-hero {
+    background: radial-gradient(1200px 600px at 25% -10%, #e8f2ff 0, transparent 60%),
+    radial-gradient(900px 500px at 110% 10%, #fff8e9 0, transparent 65%);
+    border-radius: 1.5rem;
+    padding: 2rem;
+}
+
+/* Pills / rounded */
+.rounded-2xl { border-radius: 1.25rem !important; }
+.rounded-3xl { border-radius: 1.75rem !important; }
+
+/* Subtle divider */
+.hr-soft {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(15,23,42,.12), transparent);
+    margin: 1rem 0;
+}
+
+/* Spinner alignment helper */
+.bp-spinner {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+}
+
+/* Optional dark-mode guard (basic) */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bs-body-bg: #0b1220;
+        --bs-body-color: #e2e8f0;
+    }
+    .card.bp-soft { background-color: #0f172a; }
+    .card.bp-panel { background-color: #0b1220; border-color: rgba(255,255,255,.06); }
+    .navbar.bg-primary { background-color: #0f3e7a !important; }
+}
